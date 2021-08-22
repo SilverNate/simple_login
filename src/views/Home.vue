@@ -65,9 +65,9 @@ export default {
   mounted() {
     UserService.getPublicContent().then(
       response => {
-        this.contents = response.data.results;
+        this.contents = response.data.results.data;
         this.role = this.$store.state.auth.user.role;
-        console.log('test', this.role)
+        console.log('test', this.contents)
       },
       error => {
         this.content =

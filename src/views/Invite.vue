@@ -21,7 +21,9 @@
           <div class="form-group">
             <label>Email</label>
             <input
-              type="textfield"
+              v-validate="'required|email|max:50'"
+              type="email"
+              name="email"
               class="form-control"
               placeholder="Input your email"
               v-model="form.email"

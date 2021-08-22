@@ -27,12 +27,12 @@
             {{ currentUser.username }}
           </router-link>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link to="/profile" class="nav-link">
             Profile
             {{ currentUser.username }}
           </router-link>
-        </li>
+        </li> -->
          <li v-if="currentUser.role=='school_admin'" class="nav-item">
           <router-link to="/invite" class="nav-link">
             Invite User
