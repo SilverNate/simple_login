@@ -9,18 +9,18 @@
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="school_name">School Name</label>
             <input
-              v-model="user.username"
+              v-model="user.school_name"
               v-validate="'required|min:3|max:20'"
               type="text"
               class="form-control"
-              name="username"
+              name="school_name"
             />
             <div
-              v-if="submitted && errors.has('username')"
+              v-if="submitted && errors.has('school_name')"
               class="alert-danger"
-            >{{errors.first('username')}}</div>
+            >{{errors.first('school_name')}}</div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
@@ -72,7 +72,7 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('', '', ''),
+      user: new User('', '', '',''),
       submitted: false,
       successful: false,
       message: ''
@@ -94,12 +94,15 @@ export default {
       this.submitted = true;
       this.$validator.validate().then(isValid => {
         if (isValid) {
+          console.log('register')
           this.$store.dispatch('auth/register', this.user).then(
             data => {
+               console.log('reg 1')
               this.message = data.message;
               this.successful = true;
             },
             error => {
+                             console.log('reg error')
               this.message =
                 (error.response && error.response.data) ||
                 error.message ||

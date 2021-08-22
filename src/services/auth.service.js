@@ -24,6 +24,7 @@ class AuthService {
   }
 
   register(user) {
+    console.log('masuk auth service')
     return axios.post(API_URL + 'auth/registerAdmin', {
       school_name: user.school_name,
       email: user.email,
