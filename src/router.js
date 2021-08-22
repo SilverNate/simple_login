@@ -5,7 +5,7 @@ import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Create from './views/Create.vue';
 import Invite from './views/Invite.vue';
-
+import LoginUser from './views/LoginUser.vue';
 
 Vue.use(Router);
 
@@ -13,13 +13,18 @@ export const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '/data',
+      name: 'data',
+      component: Home
+    },
+    {
       path: '/',
       name: 'home',
       component: Home
     },
     {
       path: '/home',
-      component: Home
+      component: LoginUser
     },
     {
       path: '/login',
@@ -35,18 +40,6 @@ export const router = new Router({
       // lazy-loaded
       component: () => import('./views/Profile.vue')
     },
-    // {
-    //   path: '/admin',
-    //   name: 'admin',
-    //   // lazy-loaded
-    //   component: () => import('./views/BoardAdmin.vue')
-    // },
-    // {
-    //   path: '/mod',
-    //   name: 'moderator',
-    //   // lazy-loaded
-    //   component: () => import('./views/BoardModerator.vue')
-    // },
     {
       path: '/user',
       name: 'user',
@@ -62,7 +55,6 @@ export const router = new Router({
     {
       path: '/invite',
       name: 'invite',
-      // lazy-loaded
       component: Invite
     },
     

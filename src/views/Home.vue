@@ -16,18 +16,18 @@
           </div>
           <div class="col-md-2">
             <!-- push router ke form membuat data -->
-            <router-link class="btn btn-primary w-100" to="/create">+ Add</router-link>
+            <router-link class="btn btn-primary w-100" v-if="role=='school_admin'" to="/create">+ Add</router-link>
           </div>
         </div>
         <br>
-        <table class="table">
+        <table class="table table-hover table-bordered table-responsive-lg">
           <thead>
             <tr>
               <th scope="col">Username</th>
               <th scope="col">School</th>
               <th scope="col">email</th>
               <th scope="col">role</th>
-              <th scope="col">Action</th>
+              <th scope="col" v-if="role=='school_admin'">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -37,7 +37,7 @@
               <td style="width:15%">{{content.school_name}}</td>
               <td style="width:15%">{{content.email}}</td>
               <td style="width:10%">{{content.role}}</td>
-              <td style="width:10%">
+              <td style="width:10%" v-if="role=='school_admin'">
                 <router-link class="btn btn-warning" :to="'/detail/'+content.id">Update</router-link>
                 <button class="btn btn-danger" v-on:click="deleteData(content.id)">Delete</button>
               </td>
@@ -58,14 +58,16 @@ export default {
   name: 'Home',
   data() {
     return {
-      contents: ''
+      contents: '',
+      role:'',
     };
   },
   mounted() {
     UserService.getPublicContent().then(
       response => {
         this.contents = response.data.results;
-        console.log('res', response.data.results)
+        this.role = this.$store.state.auth.user.role;
+        console.log('test', this.role)
       },
       error => {
         this.content =

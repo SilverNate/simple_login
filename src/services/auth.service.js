@@ -19,6 +19,23 @@ class AuthService {
       });
   }
 
+  loginuser(user) {
+    return axios
+      .post(API_URL + 'auth/loginUser', {
+        school_id: user.school_id,
+        password: user.password,
+        username: user.username
+      })
+      .then(response => {
+        console.log('token login-user', response.data)
+        if (response.data.access_token) {
+          localStorage.setItem('user', JSON.stringify(response.data));
+        }
+
+        return response.data;
+      });
+    }
+
   logout() {
     localStorage.removeItem('user');
   }

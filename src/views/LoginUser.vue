@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <div class="px-4 mx-2 fs-2 fw-normal justify font-weight-bold"><font face="Liberation Sans" color="green">Admin LOGIN</font></div><br>
+        <div class="px-4 mx-2 fs-2 fw-normal justify font-weight-bold"><font face="Liberation Sans" color="green">USER LOGIN</font></div><br>
       <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -9,20 +9,37 @@
       />
       <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="username">Username</label>
           <input
-            v-model="user.email"
+            v-model="user.username"
             v-validate="'required'"
             type="text"
             class="form-control"
-            name="email"
+            name="username"
           />
           <div
-            v-if="errors.has('email')"
+            v-if="errors.has('username')"
             class="alert alert-danger"
             role="alert"
-          >Email is required!</div>
+          >Username is required!</div>
         </div>
+
+        <div class="form-group">
+          <label for="school_id">School ID</label>
+          <input
+            v-model="user.school_id"
+            v-validate="'required'"
+            type="text"
+            class="form-control"
+            name="school_id"
+          />
+          <div
+            v-if="errors.has('school_id')"
+            class="alert alert-danger"
+            role="alert"
+          >School ID is required!</div>
+        </div>
+
         <div class="form-group">
           <label for="password">Password</label>
           <input
@@ -41,7 +58,7 @@
         <div class="form-group pt-3">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-            <span>Login Admin</span>
+            <span>Login User</span>
           </button>
         </div>
 
@@ -54,13 +71,13 @@
 </template>
 
 <script>
-import User from '../models/user';
+import Student from '../models/student';
 
 export default {
-  name: 'Login',
+  name: 'loginuser',
   data() {
     return {
-      user: new User('', ''),
+      user: new Student('', '',''),
       loading: false,
       message: ''
     };
@@ -70,11 +87,11 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     }
   },
-  created() {
-    if (this.loggedIn) {
-      this.$router.push('/profile');
-    }
-  },
+//   created() {
+//     if (this.loggedIn) {
+//       this.$router.push('/profile');
+//     }
+//   },
   methods: {
     handleLogin() {
       this.loading = true;
@@ -84,9 +101,10 @@ export default {
           return;
         }
 
-        if (this.user.email && this.user.password) {
-          this.$store.dispatch('auth/login', this.user).then(
+        if (this.user.username && this.user.password && this.user.school_id) {
+          this.$store.dispatch('auth/loginuser', this.user).then(
             () => {
+                console.log('login-user-vue')
               this.$router.push('/profile');
             },
             error => {

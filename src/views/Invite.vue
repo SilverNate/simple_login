@@ -38,6 +38,7 @@
             <option value="3">Student</option>
         </select>
         </div>
+          <br>
           <button class="btn btn-primary">Submit</button>
         </form>
       </div>
