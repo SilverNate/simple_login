@@ -6,6 +6,8 @@ import Register from './views/Register.vue';
 import Create from './views/Create.vue';
 import Invite from './views/Invite.vue';
 import LoginUser from './views/LoginUser.vue';
+import Message from './views/Message.vue';
+import Test from './views/chat.vue';
 
 Vue.use(Router);
 
@@ -35,12 +37,6 @@ export const router = new Router({
       component: Register
     },
     {
-      path: '/profile',
-      name: 'profile',
-      // lazy-loaded
-      component: () => import('./views/Profile.vue')
-    },
-    {
       path: '/user',
       name: 'user',
       // lazy-loaded
@@ -56,6 +52,16 @@ export const router = new Router({
       path: '/invite',
       name: 'invite',
       component: Invite
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: Message
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: Test
     },
     
   ]

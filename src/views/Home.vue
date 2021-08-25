@@ -5,7 +5,6 @@
     </header>
   </div> -->
   <div>
-    <!-- disini saya menggunakan bootstrap untuk design tabel nya. secara default bootstrap sudah di include di file welcome.blade.php jadi saya tidak perlu lagi untuk import file nya -->
     <div class="row">
       <div class="col-md-12">
         <br>
@@ -15,12 +14,11 @@
             <h4>Users</h4>
           </div>
           <div class="col-md-2">
-            <!-- push router ke form membuat data -->
             <router-link class="btn btn-primary w-100" v-if="role=='school_admin'" to="/create">+ Add</router-link>
           </div>
         </div>
         <br>
-        <table class="table table-hover table-bordered table-responsive-lg">
+        <table id='my-table' class="table table-hover table-bordered table-responsive-lg">
           <thead>
             <tr>
               <th scope="col">Username</th>
@@ -31,14 +29,13 @@
             </tr>
           </thead>
           <tbody>
-            <!-- menampilkan data ke table -->
             <tr v-for="content in contents" :key="content.id">
               <td style="width:15%">{{content.username}}</td>
               <td style="width:15%">{{content.school_name}}</td>
               <td style="width:15%">{{content.email}}</td>
               <td style="width:10%">{{content.role}}</td>
               <td style="width:10%" v-if="role=='school_admin'">
-                <router-link class="btn btn-warning" :to="'/detail/'+content.id">Update</router-link>
+                <!-- <router-link class="btn btn-warning" :to="'/detail/'+content.id">Update</router-link> -->
                 <button class="btn btn-danger" v-on:click="deleteData(content.id)">Delete</button>
               </td>
             </tr>
@@ -46,6 +43,29 @@
         </table>
       </div>
     </div>
+
+  <!-- <div class="overflow-auto">
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+
+    <p class="mt-3">Current Page: {{ currentPage }}</p> -->
+
+    <!-- <b-table
+      id="my-table" class="table table-hover table-bordered table-responsive-lg"
+      :items="items"
+      :per-page="perPage"
+      :current-page="currentPage"
+      small
+    >
+    {{item}}
+    </b-table> -->
+  <!-- </div> -->
+
+
   </div>
 </template>
 
@@ -60,6 +80,12 @@ export default {
     return {
       contents: '',
       role:'',
+
+        
+        perPage: 3,
+        currentPage: 1,
+        items: [],
+
     };
   },
   mounted() {
@@ -67,6 +93,7 @@ export default {
       response => {
         this.contents = response.data.results.data;
         this.role = this.$store.state.auth.user.role;
+        this.items = response.data.results.data
         console.log('test', this.contents)
       },
       error => {
@@ -76,6 +103,8 @@ export default {
           error.toString();
       }
     );
+    console.log('mouted')
+
   },
   methods: {
     deleteData(id) {
@@ -84,7 +113,13 @@ export default {
             window.location.reload();
         }
       });
+    },
+  },
+  computed: {
+    rows() {
+      console.log('computed', this.items.length)
+      return this.items.length
     }
-  }
+  },
 };
 </script>
