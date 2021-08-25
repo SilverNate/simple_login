@@ -104,8 +104,7 @@ export default {
         if (this.user.username && this.user.password && this.user.school_id) {
           this.$store.dispatch('auth/loginuser', this.user).then(
             () => {
-                console.log('login-user-vue')
-              this.$router.push('/profile');
+              this.$router.push('/data');
             },
             error => {
               this.loading = false;

@@ -94,7 +94,6 @@ export default {
       this.submitted = true;
       this.$validator.validate().then(isValid => {
         if (isValid) {
-          console.log('register')
           this.$store.dispatch('auth/register', this.user).then(
             data => {
                console.log('reg 1')

@@ -10,7 +10,6 @@ class AuthService {
         password: user.password
       })
       .then(response => {
-        console.log('token', response.data)
         if (response.data.access_token) {
           localStorage.setItem('user', JSON.stringify(response.data));
         }
@@ -27,7 +26,6 @@ class AuthService {
         username: user.username
       })
       .then(response => {
-        console.log('token login-user', response.data)
         if (response.data.access_token) {
           localStorage.setItem('user', JSON.stringify(response.data));
         }
@@ -41,7 +39,6 @@ class AuthService {
   }
 
   register(user) {
-    console.log('masuk auth service')
     return axios.post(API_URL + 'auth/registerAdmin', {
       school_name: user.school_name,
       email: user.email,

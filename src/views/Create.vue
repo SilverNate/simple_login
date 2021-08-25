@@ -29,15 +29,15 @@
             >
           </div>
            <div class="form-group">
-            <label>Role</label>
-            <input
-              type="textfield"
-              class="form-control"
-              placeholder="Input your role"
-              v-model="form.role"
-              required
-            >
-          </div>
+        <label>Role</label>
+        <select class="form-select" v-model="form.role"
+              required aria-label="Roles">
+            <option selected>Select Role</option>
+            <option value="2">Teacher</option>
+            <option value="3">Student</option>
+        </select>
+        </div>
+        
           <button class="btn btn-primary">Submit</button>
         </form>
       </div>

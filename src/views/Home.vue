@@ -44,26 +44,6 @@
       </div>
     </div>
 
-  <!-- <div class="overflow-auto">
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
-
-    <p class="mt-3">Current Page: {{ currentPage }}</p> -->
-
-    <!-- <b-table
-      id="my-table" class="table table-hover table-bordered table-responsive-lg"
-      :items="items"
-      :per-page="perPage"
-      :current-page="currentPage"
-      small
-    >
-    {{item}}
-    </b-table> -->
-  <!-- </div> -->
 
 
   </div>
@@ -80,21 +60,13 @@ export default {
     return {
       contents: '',
       role:'',
-
-        
-        perPage: 3,
-        currentPage: 1,
-        items: [],
-
     };
   },
   mounted() {
     UserService.getPublicContent().then(
       response => {
-        this.contents = response.data.results.data;
+        this.contents = response.data.results;
         this.role = this.$store.state.auth.user.role;
-        this.items = response.data.results.data
-        console.log('test', this.contents)
       },
       error => {
         this.content =
@@ -103,7 +75,6 @@ export default {
           error.toString();
       }
     );
-    console.log('mouted')
 
   },
   methods: {
@@ -114,12 +85,6 @@ export default {
         }
       });
     },
-  },
-  computed: {
-    rows() {
-      console.log('computed', this.items.length)
-      return this.items.length
-    }
   },
 };
 </script>
